@@ -1,7 +1,4 @@
-export default function Customer() {
-  return (
-    <>
-      <h1>Customer Page</h1>
-    </>
-  );
+function Customer() {
+    return <h1>Customer</h1>
 }
+export default Customer;

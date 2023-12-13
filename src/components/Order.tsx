@@ -1,7 +1,4 @@
-export default function Order() {
-  return (
-    <>
-      <h1>Order Page</h1>
-    </>
-  );
+function Order() {
+    return <h1>Order</h1>
 }
+export default Order;
