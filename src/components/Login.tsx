@@ -1,4 +1,4 @@
 function Login() {
-    return <h1>Login</h1>
+  return <></>;
 }
 export default Login;
