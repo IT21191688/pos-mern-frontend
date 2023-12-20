@@ -2,7 +2,7 @@
 import DefaultCard from "./cards/DefaultCard.tsx";
 import DefaultChart from "./cards/DefaultChart.tsx";
 import MinQtyCard from "./cards/MinQtyCard.tsx";
-import axios from "axios";
+import AxiosInstance from '../config/axiosInstance.ts';
 import React, {useEffect, useState} from "react";
 import Product from "./Product.tsx";
 
@@ -10,26 +10,30 @@ const  Home:React.FC = ()=>{
     const [products, setProducts]=useState<Product[]>([]);
     const[productCount,setProductCount]=useState<number>();
     const[orderCount,setOrderCount]=useState<number>();
-    const[customerCount,setCoustomerCount]=useState<number>();
+    const[customerCount,setCustomerCount]=useState<number>();
+    const[income,setIncome]=useState<number>();
     useEffect(()=>{
         findAllProducts();
 
         findAllCounts();
     }, [])
     const findAllProducts= async ()=>{
-        const response = await axios.get('http://localhost:3000/api/v1/products/find-all-min');
+        const response = await AxiosInstance.get('/products/find-all-min');
         setProducts(response.data);
     }
 
     const findAllCounts= async ()=>{
-        const productCount = await axios.get('http://localhost:3000/api/v1/products/find-all-count');
+      const productCount = await AxiosInstance.get('/products/find-all-count');
         setProductCount(productCount.data);
 
-        const customerCount = await axios.get('http://localhost:3000/api/v1/customers/find-count');
-        setCoustomerCount(customerCount.data);
+        const customerCount = await AxiosInstance.get('/customers/find-count');
+        setCustomerCount(customerCount.data);
 
-        const orderCount = await axios.get('http://localhost:3000/api/v1/orders/find-count');
+        const orderCount = await AxiosInstance.get('/orders/find-count');
         setOrderCount(orderCount.data);
+
+        const income = await AxiosInstance.get('/orders/find-income');
+        setIncome(income.data.totalCostSum)
     }
 
     return (
@@ -69,7 +73,7 @@ const  Home:React.FC = ()=>{
                             thumbnail='https://img.freepik.com/free-photo/person-carrying-lot-cash_53876-65367.jpg?w=740&t=st=1702482890~exp=1702483490~hmac=2f80e70d6f5d8949c51877db9816a9fae2fcb07d8a7d3bbec21df8acde8e1be2'
                             description='This is a wider card with supporting text below.'
                             title='Income'
-                            value={250}
+                            value={income}
                             key={1}
                         />
                     </div>
